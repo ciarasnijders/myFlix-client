@@ -22760,7 +22760,7 @@ class MainView extends _reactDefault.default.Component {
                     },
                     year: '2001',
                     genre: 'fantasy',
-                    imageURL: 'https://static.wikia.nocookie.net/harrypotter/images/f/fb/PS_poster.jpg/revision/latest?cb=20180318153750',
+                    imageURL: 'images/PS_poster.jpeg',
                     featured: true
                 },
                 {
@@ -22775,7 +22775,7 @@ class MainView extends _reactDefault.default.Component {
                     },
                     year: '1997',
                     genre: 'romance',
-                    imageURL: 'https://upload.wikimedia.org/wikipedia/en/1/19/Titanic_%28Official_Film_Poster%29.png',
+                    imageURL: 'images/Titanic_(Official_Film_Poster).png',
                     featured: true
                 },
                 {
@@ -22790,7 +22790,7 @@ class MainView extends _reactDefault.default.Component {
                     },
                     year: '2016',
                     genre: 'musical',
-                    imageURL: 'https://media.pathe.nl/nocropthumb/620x955/gfx_content/posters/lalalandposter2.jpg',
+                    imageURL: 'images/lalalandposter2.jpeg',
                     featured: true
                 }
             ],
@@ -23075,7 +23075,7 @@ class MovieView extends _reactDefault.default.Component {
                     },
                     __self: this,
                     children: /*#__PURE__*/ _jsxRuntime.jsx("img", {
-                        src: movie.imageUrl,
+                        src: movie.imageURL,
                         __source: {
                             fileName: "src/components/movie-view/movie-view.jsx",
                             lineNumber: 9
