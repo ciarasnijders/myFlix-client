@@ -1,0 +1,15 @@
+import React from 'react';
+
+export class MovieCard extends React.Component {
+    render() {
+        console.log('this.props: ', this.props);
+        
+        const { movie, onMovieClick } = this.props;
+        
+        return(
+            <div className="movie-card" onClick= {() => { onMovieClick(movie); }}>
+                {movie.title}
+            </div>
+        )
+  }
+}
