@@ -43,7 +43,7 @@ export default class MainView extends React.Component {
         });
     }
 
-    handleRegistration() {
+    handleRegistration(e) {
         e.preventDefault()
         console.log(e)
         this.setState({
