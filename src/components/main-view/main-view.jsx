@@ -14,7 +14,8 @@ export default class MainView extends React.Component {
             selectedMovie: null,
             user: null,
             newUser: false
-        };
+        }
+        this.handleRegistration=this.handleRegistration.bind(this);
     }
 
     componentDidMount(){
@@ -43,6 +44,8 @@ export default class MainView extends React.Component {
     }
 
     handleRegistration() {
+        e.preventDefault()
+        console.log(e)
         this.setState({
             newUser: true
         });
