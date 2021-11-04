@@ -22777,7 +22777,7 @@ class MainView extends _reactDefault.default.Component {
             user
         });
     }
-    handleRegistration() {
+    handleRegistration(e) {
         e.preventDefault();
         console.log(e);
         this.setState({
