@@ -22756,6 +22756,7 @@ class MainView extends _reactDefault.default.Component {
             user: null,
             newUser: false
         };
+        this.handleRegistration = this.handleRegistration.bind(this);
     }
     componentDidMount() {
         _axiosDefault.default.get('https://whatflixapp.herokuapp.com/movies').then((response)=>{
@@ -22777,6 +22778,8 @@ class MainView extends _reactDefault.default.Component {
         });
     }
     handleRegistration() {
+        e.preventDefault();
+        console.log(e);
         this.setState({
             newUser: true
         });
@@ -22787,7 +22790,7 @@ class MainView extends _reactDefault.default.Component {
             className: "authentication-flow",
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 58
+                lineNumber: 61
             },
             __self: this,
             children: newUser ? /*#__PURE__*/ _jsxRuntime.jsx(_registrationView.RegistrationView, {
@@ -22795,7 +22798,7 @@ class MainView extends _reactDefault.default.Component {
                 ,
                 __source: {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 60
+                    lineNumber: 63
                 },
                 __self: this
             }) : /*#__PURE__*/ _jsxRuntime.jsx(_loginView.LoginView, {
@@ -22804,7 +22807,7 @@ class MainView extends _reactDefault.default.Component {
                 handleRegistration: this.handleRegistration,
                 __source: {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 61
+                    lineNumber: 64
                 },
                 __self: this
             })
@@ -22813,7 +22816,7 @@ class MainView extends _reactDefault.default.Component {
             className: "main-view",
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 67
+                lineNumber: 70
             },
             __self: this
         }));
@@ -22821,7 +22824,7 @@ class MainView extends _reactDefault.default.Component {
             className: "main-view",
             __source: {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 70
+                lineNumber: 73
             },
             __self: this,
             children: selectedMovie ? /*#__PURE__*/ _jsxRuntime.jsx(_movieView.MovieView, {
@@ -22831,7 +22834,7 @@ class MainView extends _reactDefault.default.Component {
                 },
                 __source: {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 73
+                    lineNumber: 76
                 },
                 __self: this
             }) : movies.map((movie)=>/*#__PURE__*/ _jsxRuntime.jsx(_movieCard.MovieCard, {
@@ -22841,7 +22844,7 @@ class MainView extends _reactDefault.default.Component {
                     },
                     __source: {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 75
+                        lineNumber: 78
                     },
                     __self: this
                 }, movie.id)
@@ -25587,8 +25590,7 @@ function LoginView(props) {
             }),
             /*#__PURE__*/ _jsxRuntime.jsx("button", {
                 type: "registration",
-                onClick: ()=>props.handleRegistration()
-                ,
+                onClick: props.handleRegistration,
                 __source: {
                     fileName: "src/components/login-view/login-view.jsx",
                     lineNumber: 26
