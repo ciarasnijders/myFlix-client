@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import {Form, Button, Card, Container, Col, Row} from 'react-bootstrap';
 
 export function LoginView(props) {
   const [ username, setUsername ] = useState('');
@@ -13,17 +16,35 @@ export function LoginView(props) {
   };
 
   return (
-    <form>
-      <label>
-        Username:
-        <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-      </label>
-      <label>
-        Password:
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-      </label>
-      <button type="submit" onClick={handleSubmit}>Submit</button>
-      <button type="registration" onClick={props.handleRegistration}>Sign up</button>
-    </form>
+    <Container>
+      <Row>
+        <Col>
+          <Card>
+            <Card.Body>
+              <Card.Title>User Login</Card.Title>
+
+               <Form className="login-form">
+
+                <Form.Group className="mb-3" controlId="formUsername">
+                  <Form.Label>Username:</Form.Label>
+                  <Form.Control type="text" onChange={e => setUsername(e.target.value)} />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formPassword">
+                  <Form.Label>Password:</Form.Label>
+                  <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                </Form.Group>
+
+                <Button variant="outline-secondary" type="submit" onClick={handleSubmit}> Submit </Button>
+
+                {/* <a type="registration" onClick={props.handleRegistration}> Log in </a> */}
+                
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+
   );
 }
