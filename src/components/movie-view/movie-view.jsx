@@ -1,9 +1,15 @@
 import React from 'react';
+import axios from 'axios';
+import { CardGroup } from 'react-bootstrap';
+
+import {Container, Row, Col, Button, Card, CardGroup} from 'react-bootstrap'
+
 
 export class MovieView extends React.Component {
     
     render() {
         const { movie, onBackClick } = this.props;
+
         return (      
             <div className="movie-view">
                 <div className="movie-poster">
