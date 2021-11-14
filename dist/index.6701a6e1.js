@@ -22876,8 +22876,8 @@ class MainView extends _reactDefault.default.Component {
                             lineNumber: 86
                         },
                         __self: this
-                    }, movie.id)
-                })
+                    })
+                }, movie.id)
             )
         }));
     }
@@ -24480,7 +24480,7 @@ class MovieCard extends _reactDefault.default.Component {
             children: [
                 /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Img, {
                     variant: "top",
-                    src: movie.ImagePath,
+                    src: movie.ImageURL,
                     __source: {
                         fileName: "src/components/movie-card/movie-card.jsx",
                         lineNumber: 15
@@ -24500,7 +24500,7 @@ class MovieCard extends _reactDefault.default.Component {
                                 lineNumber: 17
                             },
                             __self: this,
-                            children: movie.Title
+                            children: movie.title
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsx(_cardDefault.default.Text, {
                             __source: {
@@ -24508,7 +24508,7 @@ class MovieCard extends _reactDefault.default.Component {
                                 lineNumber: 18
                             },
                             __self: this,
-                            children: movie.Description
+                            children: movie.description
                         }),
                         /*#__PURE__*/ _jsxRuntime.jsx(_buttonDefault.default, {
                             onClick: ()=>onMovieClick(movie)
