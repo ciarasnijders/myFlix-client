@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import { CardGroup } from 'react-bootstrap';
 
+import { Link } from "react-router-dom";
+
 import {Container, Row, Col, Button, Card, CardGroup} from 'react-bootstrap'
 
 
@@ -35,6 +37,14 @@ export class MovieView extends React.Component {
                     <span className="label">Director: </span>
                     <span className="value">{movie.director.name}</span>
                 </div>
+
+                <Link to={`/directors/${movie.director.name}`}>
+                    <Button variant="link">Director</Button>
+                </Link>
+
+                <Link to={`/genres/${genre.Name}`}>
+                    <Button variant="link">Genre</Button>
+                </Link>
 
                 <button onClick={() => onBackClick(null)}>Back</button>
 

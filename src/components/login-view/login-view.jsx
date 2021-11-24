@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {Form, Button, Card, Container, Col, Row} from 'react-bootstrap';
+import axios from 'axios';
 
 export function LoginView(props) {
   const [ username, setUsername ] = useState('');
@@ -9,11 +10,22 @@ export function LoginView(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
+    console.log(username, password, "data!!!")
     /* Send a request to the server for authentication */
-    /* then call props.onLoggedInHandler(username) */
-    props.onLoggedInHandler(username);
+    axios.post('http://whatflixapp.herokuapp.com/login', {
+      Username: username,
+      Password: password
+    })
+    .then(response => {
+      const data = response.data;
+      props.onLoggedIn(data);
+    })
+    .catch(e => {
+      console.log(e)
+      console.log('no such user')
+    });
   };
+
 
   return (
     <Container>
@@ -23,7 +35,7 @@ export function LoginView(props) {
             <Card.Body>
               <Card.Title>User Login</Card.Title>
 
-               <Form className="login-form">
+              <Form className="login-form">
 
                 <Form.Group className="mb-3" controlId="formUsername">
                   <Form.Label>Username:</Form.Label>
