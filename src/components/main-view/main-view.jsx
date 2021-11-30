@@ -108,7 +108,7 @@ export default class MainView extends React.Component {
                         if (movies.length === 0) return <div className="main-view" />;
                         console.log('movies --->', movies)
                         return movies.map(movie => (
-                            <Col md={3} key={movie.id}>
+                            <Col md={3} key={movie._id}>
                                 <MovieCard movie={movie} />
                             </Col>
                         ))
@@ -131,7 +131,7 @@ export default class MainView extends React.Component {
                             </Col>
                         if (movies.length === 0) return <div className="main-view" />;
                         return <Col md={8}>
-                            <MovieView movie={movies.find(m => movie.id === match.params.movieId)} onBackClick={() => history.goBack()} />
+                            <MovieView movie={movies.find(movie => movie._id === match.params.movieId)} onBackClick={() => history.goBack()} />
                             </Col>
                     }} />
 
@@ -147,6 +147,7 @@ export default class MainView extends React.Component {
                     }} />
 
                     <Route path="/directors/:name" render={({ match, history }) => {
+                        console.log('director route')
                         if (!user) return 
                         <Col>
                             <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
