@@ -6,10 +6,11 @@ import Card from 'react-bootstrap/Card';
 import { Link } from "react-router-dom";
 
 export class MovieCard extends React.Component {
-    render() {
-        console.log('this.props: ', this.props);
+  
+  render() {
+    console.log('this.props: ', this.props);
         
-        const { movie } = this.props;
+    const { movie } = this.props;
         
         return (
             <Card>
@@ -41,5 +42,5 @@ MovieCard.propTypes = {
         featured:PropTypes.bool,
         imageURL: PropTypes.string.isRequired
     }).isRequired,
-    onMovieClick: PropTypes.func.isRequired
+    onBackClick: PropTypes.func.isRequired
 };
