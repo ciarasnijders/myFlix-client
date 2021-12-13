@@ -19,7 +19,7 @@ export class ProfileView extends React.Component{
             Password: null,
             Email: null,
             Birthday: null,
-            Favorites: []
+            FavoriteMovies: []
         };
     }
 
@@ -29,17 +29,18 @@ export class ProfileView extends React.Component{
     }
 
     getUser(token) {
-        axios.get('https://whatflixapp.herokuapp.com/users', {
+        axios.get(`https://whatflixapp.herokuapp.com/users/${localStorage.getItem('user')}`, {
             headers: { Authorization: `Bearer ${token}`}
         })
         .then(response => {
+          console.log(response)
             // Assign the result to the state
             this.setState({
                 Username: response.data.Username,
                 Password: response.data.Password,
                 Email: response.data.Email,
                 Birthday: response.data.Birthday,
-                FavoriteMovies: response.data.FavoriteMovies,
+                FavoriteMovies: response.data.Favorites,
             });
         })
         .catch(function (error) {
@@ -47,32 +48,23 @@ export class ProfileView extends React.Component{
         });
     }
 
+
     handleUpdate( e, Username, Password, Email, Birthday) {
-        this.setState({
-          validated: null,
-        });
-    
-        const form = e.currentTarget;
-        if (form.checkValidity() === false) {
-          e.preventDefault();
-          e.stopPropagation();
-          this.setState({
-            validated: true,
-          });
-          return;
-        }
-        e.preventDefault();
-    
+      e.preventDefault();
+
+        console.log({ Username })
+
         const token = localStorage.getItem("token");
-        console.log(token);
-        axios.put(`https://whatflixapp.herokuapp.com/users${Username}`, {
-            headers: {Authorization: `Bearer ${token}`},
-            data: {
-              Username: this.state.Username,
-              Password: this.state.Password,
-              Email: this.state.Email,
-              Birthday: this.state.Birthday,
-            },
+        axios.put(
+          `https://whatflixapp.herokuapp.com/users/${Username}`, 
+          {
+            Username: this.state.Username,
+            Password: this.state.Password,
+            Email: this.state.Email,
+            Birthday: this.state.Birthday
+          }, 
+          {
+            headers: { Authorization: `Bearer ${token}`},
           })
           .then((response) => {
             alert("Saved Changes");
@@ -91,19 +83,20 @@ export class ProfileView extends React.Component{
       }
     
       setUsername(input) {
-        this.Username = input;
+        console.log({ input })
+        this.state.Username = input;
       }
     
       setPassword(input) {
-        this.Password = input;
+        this.state.Password = input;
       }
     
       setEmail(input) {
-        this.Email = input;
+        this.state.Email = input;
       }
     
       setBirthdate(input) {
-        this.Birthday = input;
+        this.state.Birthday = input;
       }
   
     handleDeleteUser(e) {
@@ -111,9 +104,9 @@ export class ProfileView extends React.Component{
     
         const token = localStorage.getItem("token");
         const Username = localStorage.getItem("user");
-    
+
         axios
-          .delete(`https://whatflixapp.herokuapp.com/users${Username}`, {
+          .delete(`https://whatflixapp.herokuapp.com/users/${username}/favorites/${movie._id}`, {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then(() => {
@@ -131,9 +124,7 @@ export class ProfileView extends React.Component{
         const token = localStorage.getItem("token");
         const Username = localStorage.getItem("user");
     
-        axios
-          .delete(
-            `https://obscure-castle-33842.herokuapp.com/users/${Username}/movies/${movie._id}`,
+        axios.delete(`https://obscure-castle-33842.herokuapp.com/users/${Username}/movies/${movie._id}`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }
@@ -196,10 +187,10 @@ export class ProfileView extends React.Component{
                                   onSubmit={(e) =>
                                     this.handleUpdate(
                                       e,
-                                      this.Username,
-                                      this.Password,
-                                      this.Email,
-                                      this.Birthday
+                                      this.state.Username,
+                                      this.state.Password,
+                                      this.state.Email,
+                                      this.state.Birthday
                                     )
                                   }
                                 >
@@ -261,13 +252,13 @@ export class ProfileView extends React.Component{
               <Row>
                 <Col>
                   <Card.Body>
-                    {FavoriteMovies.length === 0 && (
+                    {FavoriteMovies && FavoriteMovies.length === 0 && (
                       <div className="text-center">
                         You have no favorite movies.
                       </div>
                     )}
                     <Row className="favorites-movies ">
-                      {FavoriteMovies.length > 0 &&
+                      { FavoriteMovies && FavoriteMovies.length > 0 &&
                         movies.map((movie) => {
                           if (
                             movie._id ===
