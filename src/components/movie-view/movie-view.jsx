@@ -1,13 +1,30 @@
 import React from 'react';
 import axios from 'axios';
-import { CardGroup } from 'react-bootstrap';
-
+import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
 import {Container, Row, Col, Button, Card, CardGroup} from 'react-bootstrap'
+import './movie-view.scss';
 
 
 export class MovieView extends React.Component {
+
+    addToFavorites(movie) {
+        const username = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
+        console.log('username', username);
+    
+        axios.put(`https://whatflixapp.herokuapp.com/users/${username}/favorites/${movie.id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        .then((response) => {
+                console.log('response --->', response);
+                this.componentDidMount();
+            })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
     
     render() {
         const { movie, onBackClick } = this.props;
@@ -45,10 +62,28 @@ export class MovieView extends React.Component {
                 <Link to={`/genres/${movie.genre}`}>
                     <Button variant="link">Genre</Button>
                 </Link>
-
-                <button onClick={() => onBackClick(null)}>Back</button>
+                <Button onClick={() => { this.addToFavorites(movie) }} variant="outline-primary">Add to Favorites</Button>
+                <Button onClick={() => { onBackClick(); }} variant="outline-primary" className="button-back">Back</Button>
 
             </div>
         );
     }
 }
+
+MovieView.propTypes = {
+    movie: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        year: PropTypes.string.isRequired,
+        genre: PropTypes.string.isRequired,
+        director: PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            bio: PropTypes.string.isRequired,
+            birthYear: PropTypes.string.isRequired,
+            deathYear: PropTypes.string
+        }).isRequired,
+        featured:PropTypes.bool,
+        imageURL: PropTypes.string.isRequired
+    }).isRequired,
+    onBackClick: PropTypes.func.isRequired
+};
