@@ -14,10 +14,14 @@ export class MovieView extends React.Component {
         const token = localStorage.getItem('token');
         console.log('username', username);
     
-        axios.put(`https://whatflixapp.herokuapp.com/users/${username}/favorites/${movie.id}`, {
+        axios.put
+        (`https://whatflixapp.herokuapp.com/users/${username}/favorites/${movie._id}`,
+        {},
+        {
             headers: { Authorization: `Bearer ${token}` }
         })
         .then((response) => {
+            alert("Movie was addded to Favorites");
                 console.log('response --->', response);
                 this.componentDidMount();
             })
