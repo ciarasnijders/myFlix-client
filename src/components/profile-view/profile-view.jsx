@@ -19,8 +19,9 @@ export class ProfileView extends React.Component{
             Password: null,
             Email: null,
             Birthday: null,
-            FavoriteMovies: []
+            FavoriteMovies: [],
         };
+        
     }
 
     componentDidMount() {
@@ -29,8 +30,10 @@ export class ProfileView extends React.Component{
     }
 
     getUser(token) {
-        axios.get(`https://whatflixapp.herokuapp.com/users/${localStorage.getItem('user')}`, {
-            headers: { Authorization: `Bearer ${token}`}
+      axios.get(
+        `https://whatflixapp.herokuapp.com/users/${localStorage.getItem('user')}`, 
+        {
+          headers: { Authorization: `Bearer ${token}`}
         })
         .then(response => {
           console.log(response)
@@ -54,9 +57,10 @@ export class ProfileView extends React.Component{
 
         console.log({ Username })
 
+        const username = localStorage.getItem('user');
         const token = localStorage.getItem("token");
         axios.put(
-          `https://whatflixapp.herokuapp.com/users/${Username}`, 
+          `https://whatflixapp.herokuapp.com/users/${localStorage.getItem('user')}`, 
           {
             Username: this.state.Username,
             Password: this.state.Password,
@@ -74,8 +78,12 @@ export class ProfileView extends React.Component{
               Email: response.data.Email,
               Birthday: response.data.Birthday,
             });
-            localStorage.setItem("user", this.state.Username);
-            window.open(`/users/${Username}`, "_self");
+            localStorage.setItem("user", response.data.Username);
+            const data = response.data;
+            console.log(data);
+            console.log(this.state.Username);
+            window.location.reload();
+            // window.open(`/users/${Username}`, "_self");
           })
           .catch(function (error) {
             console.log(error);
@@ -103,10 +111,12 @@ export class ProfileView extends React.Component{
         e.preventDefault();
     
         const token = localStorage.getItem("token");
-        const Username = localStorage.getItem("user");
+        const username = localStorage.getItem("user");
 
         axios
-          .delete(`https://whatflixapp.herokuapp.com/users/${username}/favorites/${movie._id}`, {
+          .delete(`https://whatflixapp.herokuapp.com/users/${username}/favorites/${movie._id}`, 
+          {},
+          {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then(() => {
@@ -115,22 +125,24 @@ export class ProfileView extends React.Component{
             alert("Your account has been deleted.");
             window.open(`/`, "_self");
           })
-          .catch((e) => {
-            console.log(e);
+          .catch(function (error) {
+            console.log(error);
           });
     }
 
-    removeAFavoriteMovie() {
+    removeAFavoriteMovie = (e, movie) => {
         const token = localStorage.getItem("token");
         const Username = localStorage.getItem("user");
     
-        axios.delete(`https://obscure-castle-33842.herokuapp.com/users/${Username}/movies/${movie._id}`,
+        axios.delete
+        (`https://obscure-castle-33842.herokuapp.com/users/${Username}/movies/${movie._id}`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }
           )
-          .then(() => {
+          .then((response) => {
             alert("Movie was removed");
+              console.log(response);
             this.componentDidMount();
           })
           .catch(function (error) {
@@ -140,12 +152,13 @@ export class ProfileView extends React.Component{
 
 
     onLoggedOut() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        console.log('logging out');
-        this.setState({
-          user: null
-        });
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      this.setState({
+        user: null
+      });
+      console.log('logging out');
+      window.location.href= '/';
       }
 
       render() {
@@ -155,7 +168,7 @@ export class ProfileView extends React.Component{
         return (
           <Container className="mt-5">
             <Row>
-              <Col xs={12} sm={4} className="mb-5">
+              <Col xs={12} sm={8} className="mb-5">
                 <Card>
                   <Card.Body>
                     <Card.Title>Profile Info</Card.Title>
@@ -168,79 +181,71 @@ export class ProfileView extends React.Component{
                   </ListGroup>
                 </Card>
               </Col>
-    
+
+
+
               <Col xs={12} sm={8} className="mb-5">
                 <Card>
                   <Card.Body>
-                    <Container>
-                      <Row className="justify-content-md-center">
-                        <Col md={8}>
-                          <CardGroup>
-                            <Card>
-                              <Card.Body>
-                                <Card.Title>Update</Card.Title>
-    
-                                <Form
-                                  noValidate
-                                  validated={validated}
-                                  className="update-form"
-                                  onSubmit={(e) =>
-                                    this.handleUpdate(
-                                      e,
-                                      this.state.Username,
-                                      this.state.Password,
-                                      this.state.Email,
-                                      this.state.Birthday
-                                    )
-                                  }
-                                >
-                                  <Form.Group controlId="formUsername">
-                                    <Form.Label>Username:</Form.Label>
-                                    <Form.Control
-                                      type="text"
-                                      onChange={(e) =>
-                                        this.setUsername(e.target.value)
-                                      }
-                                      placeholder="Username"
-                                    />
-                                  </Form.Group>
-    
-                                  <Form.Group controlId="formPassword">
-                                    <Form.Label>Password:</Form.Label>
-                                    <Form.Control
-                                      type="password"
-                                      onChange={(e) =>
-                                        this.setPassword(e.target.value)
-                                      }
-                                      minLength="8"
-                                      placeholder="Change your password"
-                                    />
-                                  </Form.Group>
-    
-                                  <Form.Group controlId="formEmail">
-                                    <Form.Label>Email:</Form.Label>
-                                    <Form.Control
-                                      type="email"
-                                      onChange={(e) =>
-                                        this.setEmail(e.target.value)
-                                      }
-                                      placeholder="Change your email"
-                                    />
-                                  </Form.Group>
-                                  <Button variant="primary" type="submit">
-                                    Update
-                                  </Button>
-                                </Form>
-                              </Card.Body>
-                            </Card>
-                          </CardGroup>
-                        </Col>
-                      </Row>
-                    </Container>
+                    <Card.Title>Update</Card.Title>
+                        
+                      <Form
+                        noValidate
+                        validated={validated}
+                        className="update-form"
+                        onSubmit={(e) =>
+                          this.handleUpdate(
+                            e,
+                            this.state.Username,
+                            this.state.Password,
+                            this.state.Email,
+                            this.state.Birthday
+                          )
+                        }
+                      >
+                      <Form.Group controlId="formUsername">
+                        <Form.Label>Username:</Form.Label>
+                        <Form.Control
+                          type="text"
+                          onChange={(e) =>
+                            this.setUsername(e.target.value)
+                          }
+                          placeholder="Username"
+                        />
+                      </Form.Group>
+
+                      <Form.Group controlId="formPassword">
+                        <Form.Label>Password:</Form.Label>
+                        <Form.Control
+                          type="password"
+                          onChange={(e) =>
+                            this.setPassword(e.target.value)
+                          }
+                          minLength="8"
+                          placeholder="Change your password"
+                        />
+                      </Form.Group>
+
+                      <Form.Group controlId="formEmail">
+                        <Form.Label>Email:</Form.Label>
+                        <Form.Control
+                          type="email"
+                          onChange={(e) =>
+                            this.setEmail(e.target.value)
+                          }
+                          placeholder="Change your email"
+                        />
+                      </Form.Group>
+                      <Button variant="primary" type="submit">
+                        Update
+                      </Button>
+                    </Form>
+
+                    
                   </Card.Body>
                 </Card>
-              </Col>
-            </Row>
+              </Col>            
+          </Row>
     
             <Card>
               <Row>
@@ -274,23 +279,13 @@ export class ProfileView extends React.Component{
                                     style={{ width: "18rem" }}
                                     className="movieCard"
                                     variant="top"
-                                    src={movie.ImageURL}
+                                    src={movie.imageURL}
                                   />
                                   <Card.Body>
                                     <Card.Title className="movie-card-title">
-                                      {movie.Title}
+                                      {movie.title}
                                     </Card.Title>
-                                    <Button
-                                      size="sm"
-                                      className="profile-button remove-favorite"
-                                      variant="danger"
-                                      value={movie._id}
-                                      onClick={(e) =>
-                                        this.removeAFavoriteMovie(e, movie)
-                                      }
-                                    >
-                                      Remove
-                                    </Button>
+                                    <Button onClick={(e) => { this.removeAFavoriteMovie(e, movie) }} variant="danger" className="profile-button remove-favorite" value={movie._id}> Remove from List</Button>
                                   </Card.Body>
                                 </Card>
                             );
@@ -299,12 +294,10 @@ export class ProfileView extends React.Component{
                     </Row>
                   </Card.Body>
     
-                  <Button
-                    variant="secondary"
-                    onClick={() => handleDeleteUser(e, user)}
-                  >
-                    Delete Account
-                  </Button>
+                  <Button onClick={() => this.handleDeleteUser(user)} variant="secondary"> Delete Account</Button>
+
+                  <Button onClick={() => this.onLoggedOut()} variant="secondary">Log out</Button>
+
                 </Col>
               </Row>
             </Card>
