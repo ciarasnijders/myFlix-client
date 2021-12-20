@@ -162,7 +162,7 @@ export default class MainView extends React.Component {
                     <Route path='/users/:username' render={({history, match}) => {
                         if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
                         if (movies.length === 0) return <div className="main-view" />;
-                        return <ProfileView history={history} movies={movies} user={user === match.params.username} />
+                        return <ProfileView history={history} movies={movies} user={user === match.params.username} onBackClick={() => window.location.href= '/'}/>
                         }} 
                     />
 
