@@ -111,11 +111,10 @@ export class ProfileView extends React.Component{
         e.preventDefault();
     
         const token = localStorage.getItem("token");
-        const username = localStorage.getItem("user");
+        const Username = localStorage.getItem("user");
 
         axios
-          .delete(`https://whatflixapp.herokuapp.com/users/${username}/favorites/${movie._id}`, 
-          {},
+          .delete(`https://whatflixapp.herokuapp.com/users/${Username}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           })
@@ -135,7 +134,7 @@ export class ProfileView extends React.Component{
         const Username = localStorage.getItem("user");
     
         axios.delete
-        (`https://obscure-castle-33842.herokuapp.com/users/${Username}/movies/${movie._id}`,
+        (`https://whatflixapp.herokuapp.com/users/${Username}/favorites/${movie._id}`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }
@@ -163,7 +162,7 @@ export class ProfileView extends React.Component{
 
       render() {
         const { FavoriteMovies, validated, Username, Email, Birthday } = this.state;
-        const { movies } = this.props;
+        const { movies, onBackClick } = this.props;
     
         return (
           <Container className="mt-5">
@@ -293,10 +292,16 @@ export class ProfileView extends React.Component{
                         })}
                     </Row>
                   </Card.Body>
-    
-                  <Button onClick={() => this.handleDeleteUser(user)} variant="secondary"> Delete Account</Button>
 
-                  <Button onClick={() => this.onLoggedOut()} variant="secondary">Log out</Button>
+                  <Row>
+                    <Button onClick={() => this.handleDeleteUser(user)} variant="secondary"> Delete Account</Button>
+                  </Row>
+                  <Row>
+                    <Button onClick={() => this.onLoggedOut()} variant="secondary">Log out</Button>
+                  </Row>
+                  <Row>
+                    <Button onClick={() => { onBackClick(); }} variant="outline-primary" className="button-back">Back to movies</Button>
+                  </Row>
 
                 </Col>
               </Row>
