@@ -14,6 +14,7 @@ import { GenreView } from '../genre-view/genre-view';
 import { ProfileView } from '../profile-view/profile-view';
 import { setMovies } from '../../actions/actions';
 import MoviesList from '../movies-list/movies-list';
+import NavBar from '../navbar/navbar';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -104,6 +105,7 @@ class MainView extends React.Component {
 
         return (
             <Router>
+                <NavBar />
                 <Row className="main-view justify-content-md-center">
 
                     <Route exact path="/" render={() => {
