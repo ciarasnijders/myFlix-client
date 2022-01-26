@@ -26,6 +26,7 @@ export function LoginView(props) {
     });
   };
 
+  console.log({props})
 
   return (
     <Container>
@@ -49,7 +50,7 @@ export function LoginView(props) {
 
                 <Button variant="outline-secondary" type="submit" onClick={handleSubmit}> Submit </Button>
 
-                {/* <a type="registration" onClick={props.handleRegistration}> Log in </a> */}
+                <Button variant="link"  onClick={props.redirectToRegister}> Register </Button>
                 
               </Form>
             </Card.Body>
