@@ -29,6 +29,9 @@ class MainView extends React.Component {
             newUser: false
         }
         this.handleRegistration=this.handleRegistration.bind(this);
+        this.redirectToLogin=this.redirectToLogin.bind(this);
+        this.redirectToRegister=this.redirectToRegister.bind(this);
+
     }
     
     componentDidMount() {
@@ -71,9 +74,15 @@ class MainView extends React.Component {
         this.getMovies(authData.token);
     }
 
-    handleRegistration(e) {
-        e.preventDefault()
-        console.log(e)
+    redirectToLogin() {
+        window.location.href= '/'
+    }
+
+    redirectToRegister() {
+        window.location.href= '/register'
+    }
+
+    handleRegistration() {
         this.setState({
             newUser: true
         });
@@ -102,17 +111,13 @@ class MainView extends React.Component {
                         if (!user) { 
                             return (
                                 <Col>
-                                    <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                                    <LoginView onLoggedIn={user => this.onLoggedIn(user)} redirectToRegister={() => this.redirectToRegister()}/>
                                 </Col>
                             )
                         }
                         if (movies.length === 0) return <div className="main-view" />;
                         console.log('movies --->', movies)
-                        return movies.map(movie => (
-                            <Col md={3} key={movie._id}>
-                                <MovieCard movie={movie} />
-                            </Col>
-                        ))
+                        return <MoviesList movies={movies}/>;
                     }} />
 
                     <Route path="/register" render={() => {
@@ -120,7 +125,7 @@ class MainView extends React.Component {
                             return <Redirect to="/" />
                         return (
                             <Col> 
-                                <RegistrationView />
+                                <RegistrationView redirectToLogin={() => this.redirectToLogin()}/>
                             </Col>
                         )
                     }} />
@@ -128,7 +133,7 @@ class MainView extends React.Component {
                     <Route exact path="/movies/:movieId" render={({ match, history }) => {
                         if (!user) return 
                             <Col>
-                                <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                                <LoginView onLoggedIn={user => this.onLoggedIn(user)} redirectToRegister={() => this.redirectToRegister()} />
                             </Col>
                         if (movies.length === 0) return <div className="main-view" />;
                         return <Col md={8}>
@@ -139,7 +144,7 @@ class MainView extends React.Component {
                     <Route exact path="/genres/:name" render={({ match, history }) => {
                         if (!user) return 
                         <Col>
-                            <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                            <LoginView onLoggedIn={user => this.onLoggedIn(user)} redirectToRegister={() => this.redirectToRegister()} />
                         </Col>
                         if (movies.length === 0) return <div className="main-view" />;
                         return <Col md={8}>
@@ -151,7 +156,7 @@ class MainView extends React.Component {
                         console.log('director route')
                         if (!user) return 
                         <Col>
-                            <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                            <LoginView onLoggedIn={user => this.onLoggedIn(user)} redirectToRegister={() => this.redirectToRegister()} />
                         </Col>
                         if (movies.length === 0) return <div className="main-view" />;
                         return <Col md={8}>
@@ -161,7 +166,7 @@ class MainView extends React.Component {
 
                     <Link to={`/users/${user}`} >{user}</Link>
                     <Route path='/users/:username' render={({history, match}) => {
-                        if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                        if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} redirectToRegister={() => this.redirectToRegister()} />
                         if (movies.length === 0) return <div className="main-view" />;
                         return <ProfileView history={history} movies={movies} user={user === match.params.username} onBackClick={() => window.location.href= '/'}/>
                         }} 
