@@ -77,10 +77,16 @@ export function RegistrationView(props) {
                   </Form.Group>
 
                   <Button 
-                    variant="primary"
+                    variant="outline-secondary"
                     type="submit" 
                     onClick={handleSubmit} >
                       Submit
+                  </Button>
+
+                  <Button 
+                    variant="link"  
+                    onClick={props.redirectToLogin}> 
+                    Login
                   </Button>
 
                 </Form>
