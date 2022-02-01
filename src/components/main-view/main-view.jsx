@@ -15,6 +15,7 @@ import { ProfileView } from '../profile-view/profile-view';
 import { setMovies } from '../../actions/actions';
 import MoviesList from '../movies-list/movies-list';
 import NavBar from '../navbar/navbar';
+import FavoritesView from '../favorites-view/favorites-view';
 
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -104,6 +105,7 @@ class MainView extends React.Component {
         let { user } = this.state;
 
         return (
+
             <Router>
                 <NavBar />
                 <Row className="main-view justify-content-md-center">
@@ -166,14 +168,27 @@ class MainView extends React.Component {
                         </Col>
                     }} />
 
+
                     <Link to={`/users/${user}`} >{user}</Link>
                     <Route path='/users/:username' render={({history, match}) => {
                         if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} redirectToRegister={() => this.redirectToRegister()} />
                         if (movies.length === 0) return <div className="main-view" />;
                         return <ProfileView history={history} movies={movies} user={user === match.params.username} onBackClick={() => window.location.href= '/'}/>
-                        }} 
+                    }} 
                     />
 
+                    <Link to={`/favorites`}>{user}</Link>
+                    <Route path="/favorites" render={({ match, history }) => {
+                        console.log('favorites route')
+                        if (!user) return 
+                        <Col>
+                            <LoginView onLoggedIn={user => this.onLoggedIn(user)} redirectToRegister={() => this.redirectToRegister()} />
+                        </Col>
+                        if (movies.length === 0) return <div className="main-view" />;
+                        return <Col md={8}>
+                            <FavoritesView movies={movies} onBackClick={() => history.goBack()} />
+                        </Col>
+                    }} />
                 </Row>
             </Router>
 
