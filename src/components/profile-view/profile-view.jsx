@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
-import { Form, Button, Container, Row, Col, Card, ListGroup, CardGroup,  ListGroupItem } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Card, ListGroup,  ListGroupItem } from 'react-bootstrap';
 
 
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
@@ -165,15 +165,20 @@ export class ProfileView extends React.Component{
         const { movies, onBackClick } = this.props;
     
         return (
-          <Container className="mt-5">
+          <Container className="mt-5 ProfileInfo">
+          
+          <h1>My Profile</h1>
+
+          <br></br>
+
             <Row>
               <Col xs={12} sm={8} className="mb-5">
-                <Card>
+                <Card bg="black" border="light" text="white">
                   <Card.Body>
                     <Card.Title>Profile Info</Card.Title>
                   </Card.Body>
                   <ListGroup className="list-group-flush">
-                    <ListGroupItem className="listitem">Username: {Username} </ListGroupItem>
+                    <ListGroupItem className="listitem" >Username: {Username} </ListGroupItem>
                     <ListGroupItem className="listitem">Password: *** </ListGroupItem>
                     <ListGroupItem className="listitem">Email: {Email} </ListGroupItem>
                     <ListGroupItem className="listitem">Birthday: {Birthday} </ListGroupItem>
@@ -184,9 +189,9 @@ export class ProfileView extends React.Component{
 
 
               <Col xs={12} sm={8} className="mb-5">
-                <Card>
+                <Card bg="black" border="light" text="white">
                   <Card.Body>
-                    <Card.Title>Update</Card.Title>
+                    <Card.Title>Update Your Information</Card.Title>
                         
                       <Form
                         noValidate
@@ -235,7 +240,8 @@ export class ProfileView extends React.Component{
                           placeholder="Change your email"
                         />
                       </Form.Group>
-                      <Button variant="primary" type="submit">
+                      <br></br>
+                      <Button variant="light" type="submit">
                         Update
                       </Button>
                     </Form>
@@ -246,22 +252,22 @@ export class ProfileView extends React.Component{
               </Col>            
           </Row>
     
-            <Card>
+            {/* <Card bg="black" border="light" text="white" >
               <Row>
                 <Col xs={12}>
                   <h4>Favorite Movies</h4>
                 </Col>
               </Row>
     
-              <Row>
-                <Col>
-                  <Card.Body>
+              <div>
+
                     {FavoriteMovies && FavoriteMovies.length === 0 && (
                       <div className="text-center">
                         You have no favorite movies.
                       </div>
                     )}
-                    <Row className="favorites-movies ">
+                    <div className="favorites-movies " >
+                      <Row md={3} className="g-4">
                       { FavoriteMovies && FavoriteMovies.length > 0 &&
                         movies.map((movie) => {
                           if (
@@ -269,6 +275,7 @@ export class ProfileView extends React.Component{
                             FavoriteMovies.find((fav) => fav === movie._id)
                           ) {
                             return (
+                              <Col>
                                 <Card
                                   className="favorites-item card-content"
                                   style={{ width: "16rem" }}
@@ -287,25 +294,27 @@ export class ProfileView extends React.Component{
                                     <Button onClick={(e) => { this.removeAFavoriteMovie(e, movie) }} variant="danger" className="profile-button remove-favorite" value={movie._id}> Remove from List</Button>
                                   </Card.Body>
                                 </Card>
+                              </Col>
                             );
                           }
                         })}
-                    </Row>
-                  </Card.Body>
+                        </Row>
+                    </div>
+              </div>
+            </Card> */}
 
-                  <Row>
-                    <Button onClick={() => this.handleDeleteUser(user)} variant="secondary"> Delete Account</Button>
+            <Row>
+                    <Button onClick={() => this.handleDeleteUser(user)} variant="light"> Delete Account</Button>
                   </Row>
+                  <br></br>
                   <Row>
-                    <Button onClick={() => this.onLoggedOut()} variant="secondary">Log out</Button>
+                    <Button onClick={() => this.onLoggedOut()} variant="light">Log out</Button>
                   </Row>
+                  <br></br>
                   <Row>
-                    <Button onClick={() => { onBackClick(); }} variant="outline-primary" className="button-back">Back to movies</Button>
-                  </Row>
+                    <Button onClick={() => { onBackClick(); }} variant="light" className="button-back">Back to movies</Button>
+            </Row>
 
-                </Col>
-              </Row>
-            </Card>
           </Container>
         );
       }
