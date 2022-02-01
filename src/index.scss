@@ -1,5 +1,21 @@
-$color: steelblue;
+.app-container{
+  background-color: black;
+}
 
-.my-flix {
-  color: $color;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: white;
+
+  /* Sets the font size to 16px */
+  line-height: 1.6;
 }
