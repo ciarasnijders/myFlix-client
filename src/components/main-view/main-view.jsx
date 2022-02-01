@@ -1,10 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 
-import { connect } from 'react-redux';
-
-import { BrowserRouter as Router, Route, Redirect, Link } from "react-router-dom";
-
 import { LoginView } from '../login-view/login-view';
 import { RegistrationView } from '../registration-view/registration-view';
 // import { MovieCard } from '../movie-card/movie-card';
@@ -17,9 +13,10 @@ import MoviesList from '../movies-list/movies-list';
 import NavBar from '../navbar/navbar';
 import FavoritesView from '../favorites-view/favorites-view';
 
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
+import { connect } from 'react-redux';
+
+import { BrowserRouter as Router, Route, Redirect, Link } from "react-router-dom";
+import { Container, Row, Col, Button } from 'react-bootstrap';
 
 
 class MainView extends React.Component {
