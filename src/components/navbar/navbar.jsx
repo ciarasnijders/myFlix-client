@@ -4,7 +4,7 @@ import {Navbar,Container, Nav} from 'react-bootstrap';
 class NavBar extends React.Component {
     render() {
         return (
-            <Navbar collapseOnSelect expand="lg" bg="light" variant="light" fixed="top">
+            <Navbar collapseOnSelect expand="lg" bg="white" variant="light" fixed="top">
                 <Container>
                     <Navbar.Brand href="#home">
                         <img
@@ -19,9 +19,10 @@ class NavBar extends React.Component {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
-                            <Nav.Link href="/">List of Movies</Nav.Link>
+                            <Nav.Link href="/">Homepage</Nav.Link>
                         </Nav>
                         <Nav>
+                            <Nav.Link href="/favorites">My Favorites</Nav.Link>
                             <Nav.Link href="/users/:username">My Profile</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
