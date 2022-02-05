@@ -18,7 +18,7 @@ export class MovieCard extends React.Component {
               <Card.Img variant="top" src={movie.imageURL} className="card-img img-fluid"/>
               <Card.Body>
                 <Card.Title as="h4">{movie.title}</Card.Title>
-                <Card.Text style={{color:"#F8F9FA"}}>{movie.description.slice(0, 200)}...</Card.Text>
+                <Card.Text className="card-text">{movie.description.slice(0, 200)}...</Card.Text>
                 <Link to={`/movies/${movie._id}`}>
                   <Button className="mc-gotomovie-button" variant="link">Go to movie</Button>
                 </Link>
