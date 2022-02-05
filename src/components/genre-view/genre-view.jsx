@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import './genre-view.scss'
 
 import { Link } from "react-router-dom";
 
@@ -44,7 +45,8 @@ export class GenreView extends React.Component {
                     <span className="label">Description: </span>
                     <span className="value">{genres.Description}</span>
                 </div>
-                <button onClick={() => onBackClick(null)}>Back</button>
+                <br></br>
+                <Button variant="outline-secondary" onClick={() => onBackClick(null)}>Back</Button>
 
             </div>
         );
