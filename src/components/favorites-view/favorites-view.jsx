@@ -1,5 +1,6 @@
 import React from 'react';
 import {Card, Row, Col, Button, Container} from 'react-bootstrap';
+import { Link } from "react-router-dom";
 import './favorites-view.scss'
 import axios from 'axios';
 
@@ -58,9 +59,9 @@ class FavoritesView extends React.Component {
 
 
         return (
-            <Container className="mt-5 ListOfFavs">
+            <Container className="ListOfFavs justify-content-md-center">
 
-                <h1>Favorite Movies</h1>
+                <h1 style={{color:"#F8F9FA"}}>My Favorite Movies</h1>
                 <br></br>
     
                 <div>
@@ -69,8 +70,8 @@ class FavoritesView extends React.Component {
                         You have no favorite movies.
                       </div>
                     )}
-                    <div className="favorites-movies " >
-                      <Row md={3} className="g-4">
+                    <div className="favorites-movies" >
+                      <Row md={4}>
                       { FavoriteMovies && FavoriteMovies.length > 0 &&
                         movies.map((movie, idx) => {
                           if (
@@ -78,26 +79,30 @@ class FavoritesView extends React.Component {
                             FavoriteMovies.find((fav) => fav === movie._id)
                           ) {
                             return (
-                              <Col key={idx}>
-                                <Card
+                              <Row md={4} className="fv-moviecards">
+                                <Card bg="black" text="white"
                                   className="favorites-item card-content"
                                   style={{ width: "16rem" }}
                                   key={movie._id}
                                 >
                                   <Card.Img
-                                    style={{ width: "18rem" }}
-                                    className="movieCard"
+                                    style={{ width: "16rem" }}
+                                    className="moviecard-image"
                                     variant="top"
                                     src={movie.imageURL}
                                   />
-                                  <Card.Body>
+                                  <Card.Body className="card-body-favourite">
                                     <Card.Title className="movie-card-title">
-                                      {movie.title}
+                                    <Link to={`/movies/${movie._id}`}>
+                                        <Button className="fv-gotomovie-button" variant="link">{movie.title}</Button>
+                                    </Link>
                                     </Card.Title>
-                                    <Button onClick={(e) => { this.removeAFavoriteMovie(e, movie) }} variant="danger" className="profile-button remove-favorite" value={movie._id}> Remove from List</Button>
+
+                                    <Button onClick={(e) => { this.removeAFavoriteMovie(e, movie) }} variant="outline-secondary" size="sm" className="profile-button remove-favorite" value={movie._id}> Remove from List</Button>
+                                  
                                   </Card.Body>
                                 </Card>
-                              </Col>
+                              </Row>
                             );
                           }
                         })}
