@@ -105,7 +105,7 @@ class MainView extends React.Component {
 
             <Router>
                 <NavBar />
-                <Row className="main-view justify-content-md-center">
+                <Row className="main-view justify-content-md-center" style={{paddingTop: "100px"}}>
 
                     <Route exact path="/" render={() => {
                         if (!user) { 
@@ -152,7 +152,6 @@ class MainView extends React.Component {
                     }} />
 
                     <Route path="/directors/:name" render={({ match, history }) => {
-                        console.log('director route')
                         if (!user) return 
                         <Col>
                             <LoginView onLoggedIn={user => this.onLoggedIn(user)} redirectToRegister={() => this.redirectToRegister()} />
