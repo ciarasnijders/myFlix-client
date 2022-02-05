@@ -108,7 +108,6 @@ class MainView extends React.Component {
                 <Row className="main-view justify-content-md-center">
 
                     <Route exact path="/" render={() => {
-                        console.log('root')
                         if (!user) { 
                             return (
                                 <Col>
@@ -117,8 +116,7 @@ class MainView extends React.Component {
                             )
                         }
                         if (movies.length === 0) return <div className="main-view" />;
-                        console.log('movies --->', movies)
-                        return <MoviesList movies={movies}/>;
+                        return <MoviesList movies={movies}/>
                     }} />
 
                     <Route path="/register" render={() => {
