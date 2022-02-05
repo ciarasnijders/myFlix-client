@@ -17,16 +17,19 @@ class NavBar extends React.Component {
                             height="50px"
                             className="d-inline-block align-left logo"
                         />{' '}
-                        <img
-                            alt="app name"
-                            src={AppName}
-                            height="58"
-                            width="200"
-                        />{' '}
                     </Navbar.Brand>
+                    
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
+                            <Nav.Link href="/">
+                                <img
+                                    alt="app name"
+                                    src={AppName}
+                                    height="58"
+                                    width="200"
+                                />{' '}
+                            </Nav.Link>
                         </Nav>
                         <Nav>
                             <Nav.Link href="/">Homepage</Nav.Link>
