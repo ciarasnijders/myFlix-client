@@ -166,7 +166,7 @@ class MainView extends React.Component {
                     }} />
 
 
-                    <Link to={`/users/${user}`} >{user}</Link>
+                    {/* <Link to={`/users/${user}`} >{user}</Link> */}
                     <Route path='/users/:username' render={({history, match}) => {
                         if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} redirectToRegister={() => this.redirectToRegister()} />
                         if (movies.length === 0) return <div className="main-view" />;
@@ -174,17 +174,16 @@ class MainView extends React.Component {
                     }} 
                     />
 
-                    <Link to={`/favorites`}>{user}</Link>
+                    {/* <Link to={`/favorites`}>{user}</Link> */}
                     <Route path="/favorites" render={({ match, history }) => {
-                        console.log('favorites route')
                         if (!user) return 
                         <Col>
                             <LoginView onLoggedIn={user => this.onLoggedIn(user)} redirectToRegister={() => this.redirectToRegister()} />
                         </Col>
                         if (movies.length === 0) return <div className="main-view" />;
-                        return <Col md={8}>
+                        return <div className="main-view">
                             <FavoritesView movies={movies} onBackClick={() => history.goBack()} />
-                        </Col>
+                        </div>
                     }} />
                 </Row>
             </Router>
