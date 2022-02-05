@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import './director-view.scss'
 
 import { Link } from "react-router-dom";
 
@@ -13,6 +14,7 @@ export class DirectorView extends React.Component {
 
         return (      
             <div className="director-view">
+                <br></br>
                 <div className="director-name">
                     <span className="label">Name: </span>
                     <span className="value">{director.name}</span>
@@ -30,9 +32,9 @@ export class DirectorView extends React.Component {
                     <span className="value">{director.deathYear}</span>
                 </div>
 
-                
+                <br></br>                
 
-                <button onClick={() => onBackClick(null)}>Back</button>
+                <Button variant="outline-secondary" onClick={() => onBackClick(null)}>Back</Button>
 
             </div>
         );
