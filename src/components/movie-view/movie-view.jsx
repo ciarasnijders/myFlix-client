@@ -3,7 +3,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 
-import {Container, Row, Col, Button, Card, CardGroup} from 'react-bootstrap'
+import {Button} from 'react-bootstrap'
 import './movie-view.scss';
 
 
@@ -36,8 +36,9 @@ export class MovieView extends React.Component {
         return (      
             <div className="movie-view">
                 <div className="movie-poster">
-                    <img src={movie.imageURL} />
+                    <img src={movie.imageURL} className="movie-poster-image" />
                 </div>
+                <br></br>
                 <div className="movie-title">
                     <span className="label">Title: </span>
                     <span className="value">{movie.title}</span>
@@ -52,22 +53,31 @@ export class MovieView extends React.Component {
                 </div>
                 <div className="movie-genre">
                     <span className="label">Genre: </span>
-                    <span className="value">{movie.genre}</span>
+                    <Link to={`/genres/${movie.genre}`}>
+                        <Button variant="link" className="value">{movie.genre}</Button>
+                    </Link>
                 </div>
                 <div className="movie-director">
                     <span className="label">Director: </span>
-                    <span className="value">{movie.director.name}</span>
+                    <Link to={`/directors/${movie.director.name}`}>
+                        <Button variant="link" className="value">{movie.director.name}</Button>
+                    </Link>
                 </div>
 
+                <br></br>
+
                 <Link to={`/directors/${movie.director.name}`}>
-                    <Button variant="link">Director</Button>
+                    <Button variant="link" className="movie-view-link">Director</Button>
+                </Link>
+                <Link to={`/genres/${movie.genre}`}>
+                    <Button variant="link" className="movie-view-link">Genre</Button>
                 </Link>
 
-                <Link to={`/genres/${movie.genre}`}>
-                    <Button variant="link">Genre</Button>
-                </Link>
-                <Button onClick={() => { this.addToFavorites(movie) }} variant="outline-primary">Add to Favorites</Button>
-                <Button onClick={() => { onBackClick(); }} variant="outline-primary" className="button-back">Back</Button>
+                <br></br>
+                <br></br>
+
+                <Button onClick={() => { this.addToFavorites(movie) }} variant="outline-secondary">Add to Favorites</Button>
+                <Button onClick={() => { onBackClick(); }} variant="outline-secondary" size="md" style={{float:'right'}} className="button-back">Back</Button>
 
             </div>
         );
