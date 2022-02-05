@@ -37303,9 +37303,7 @@ class MovieCard extends _reactDefault.default.Component {
                             columnNumber: 17
                         }, this),
                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_cardDefault.default.Text, {
-                            style: {
-                                color: "#F8F9FA"
-                            },
+                            className: "card-text",
                             children: [
                                 movie.description.slice(0, 200),
                                 "..."
@@ -37413,17 +37411,6 @@ class NavBar extends _reactDefault.default.Component {
                                 lineNumber: 13,
                                 columnNumber: 25
                             }, this),
-                            ' ',
-                            /*#__PURE__*/ _jsxDevRuntime.jsxDEV("img", {
-                                alt: "app name",
-                                src: _appNamePngDefault.default,
-                                height: "58",
-                                width: "200"
-                            }, void 0, false, {
-                                fileName: "src/components/navbar/navbar.jsx",
-                                lineNumber: 20,
-                                columnNumber: 25
-                            }, this),
                             ' '
                         ]
                     }, void 0, true, {
@@ -37435,17 +37422,37 @@ class NavBar extends _reactDefault.default.Component {
                         "aria-controls": "responsive-navbar-nav"
                     }, void 0, false, {
                         fileName: "src/components/navbar/navbar.jsx",
-                        lineNumber: 27,
+                        lineNumber: 22,
                         columnNumber: 21
                     }, this),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Navbar.Collapse, {
                         id: "responsive-navbar-nav",
                         children: [
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Nav, {
-                                className: "me-auto"
+                                className: "me-auto",
+                                children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Nav.Link, {
+                                    href: "/",
+                                    children: [
+                                        /*#__PURE__*/ _jsxDevRuntime.jsxDEV("img", {
+                                            alt: "app name",
+                                            src: _appNamePngDefault.default,
+                                            height: "58",
+                                            width: "200"
+                                        }, void 0, false, {
+                                            fileName: "src/components/navbar/navbar.jsx",
+                                            lineNumber: 26,
+                                            columnNumber: 33
+                                        }, this),
+                                        ' '
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "src/components/navbar/navbar.jsx",
+                                    lineNumber: 25,
+                                    columnNumber: 29
+                                }, this)
                             }, void 0, false, {
                                 fileName: "src/components/navbar/navbar.jsx",
-                                lineNumber: 29,
+                                lineNumber: 24,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Nav, {
@@ -37455,7 +37462,7 @@ class NavBar extends _reactDefault.default.Component {
                                         children: "Homepage"
                                     }, void 0, false, {
                                         fileName: "src/components/navbar/navbar.jsx",
-                                        lineNumber: 32,
+                                        lineNumber: 35,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Nav.Link, {
@@ -37463,7 +37470,7 @@ class NavBar extends _reactDefault.default.Component {
                                         children: "My Favorites"
                                     }, void 0, false, {
                                         fileName: "src/components/navbar/navbar.jsx",
-                                        lineNumber: 33,
+                                        lineNumber: 36,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Nav.Link, {
@@ -37471,19 +37478,19 @@ class NavBar extends _reactDefault.default.Component {
                                         children: "My Profile"
                                     }, void 0, false, {
                                         fileName: "src/components/navbar/navbar.jsx",
-                                        lineNumber: 34,
+                                        lineNumber: 37,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/navbar/navbar.jsx",
-                                lineNumber: 31,
+                                lineNumber: 34,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/navbar/navbar.jsx",
-                        lineNumber: 28,
+                        lineNumber: 23,
                         columnNumber: 21
                     }, this)
                 ]
