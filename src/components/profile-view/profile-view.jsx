@@ -165,19 +165,19 @@ export class ProfileView extends React.Component{
         const { movies, onBackClick } = this.props;
     
         return (
-          <Container className="mt-5 ProfileInfo">
+          <Container className="ProfileInfo">
           
-          <h1>My Profile</h1>
+          <h1 style={{color:"#F8F9FA"}}>My Profile</h1>
 
           <br></br>
 
-            <Row>
+            <Row className="justify-content-md-center">
               <Col xs={12} sm={8} className="mb-5">
                 <Card bg="black" border="light" text="white">
                   <Card.Body>
                     <Card.Title>Profile Info</Card.Title>
                   </Card.Body>
-                  <ListGroup className="list-group-flush">
+                  <ListGroup className="list-group-flush" variant="dark">
                     <ListGroupItem className="listitem" >Username: {Username} </ListGroupItem>
                     <ListGroupItem className="listitem">Password: *** </ListGroupItem>
                     <ListGroupItem className="listitem">Email: {Email} </ListGroupItem>
@@ -251,69 +251,15 @@ export class ProfileView extends React.Component{
                 </Card>
               </Col>            
           </Row>
-    
-            {/* <Card bg="black" border="light" text="white" >
-              <Row>
-                <Col xs={12}>
-                  <h4>Favorite Movies</h4>
-                </Col>
-              </Row>
-    
-              <div>
 
-                    {FavoriteMovies && FavoriteMovies.length === 0 && (
-                      <div className="text-center">
-                        You have no favorite movies.
-                      </div>
-                    )}
-                    <div className="favorites-movies " >
-                      <Row md={3} className="g-4">
-                      { FavoriteMovies && FavoriteMovies.length > 0 &&
-                        movies.map((movie) => {
-                          if (
-                            movie._id ===
-                            FavoriteMovies.find((fav) => fav === movie._id)
-                          ) {
-                            return (
-                              <Col>
-                                <Card
-                                  className="favorites-item card-content"
-                                  style={{ width: "16rem" }}
-                                  key={movie._id}
-                                >
-                                  <Card.Img
-                                    style={{ width: "18rem" }}
-                                    className="movieCard"
-                                    variant="top"
-                                    src={movie.imageURL}
-                                  />
-                                  <Card.Body>
-                                    <Card.Title className="movie-card-title">
-                                      {movie.title}
-                                    </Card.Title>
-                                    <Button onClick={(e) => { this.removeAFavoriteMovie(e, movie) }} variant="danger" className="profile-button remove-favorite" value={movie._id}> Remove from List</Button>
-                                  </Card.Body>
-                                </Card>
-                              </Col>
-                            );
-                          }
-                        })}
-                        </Row>
-                    </div>
-              </div>
-            </Card> */}
 
-            <Row>
-                    <Button onClick={() => this.handleDeleteUser(user)} variant="light"> Delete Account</Button>
-                  </Row>
-                  <br></br>
-                  <Row>
-                    <Button onClick={() => this.onLoggedOut()} variant="light">Log out</Button>
-                  </Row>
-                  <br></br>
-                  <Row>
-                    <Button onClick={() => { onBackClick(); }} variant="light" className="button-back">Back to movies</Button>
-            </Row>
+          <Row className="pv-button-row">
+            <div className="pv-button-container">
+              <Button onClick={() => this.handleDeleteUser(user)} variant="light" className="profile-view-buttons"> Delete Account</Button>
+              <Button onClick={() => this.onLoggedOut()} variant="light" className="profile-view-buttons">Log out</Button>
+              <Button onClick={() => { onBackClick(); }} variant="light" className="button-back profile-view-buttons">Back to movies</Button>
+            </div>
+          </Row>
 
           </Container>
         );
