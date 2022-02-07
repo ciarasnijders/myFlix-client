@@ -1,7 +1,8 @@
 import React from 'react';
-import Col from 'react-bootstrap/Col';
+import {Col, Row} from 'react-bootstrap';
 import { connect } from 'react-redux';
 // import './movies-list.scss'
+import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
 
 import { MovieCard } from '../movie-card/movie-card';
 
@@ -21,15 +22,33 @@ function MoviesList(props) {
     if (!movies) 
         return <div className="main-view"/>;
 
-    return filteredMovies.map(m => (
-        <Col 
-            md={3} 
-            key={m._id} 
-            className="mt-5"
-        >
-            <MovieCard movie={m} />
-        </Col>
-    ));
+    return (
+        <Row>
+            <br></br>
+            <Row className="mv-list-seachbar"> 
+                <VisibilityFilterInput visibilityFilter={visibilityFilter}/>
+            </Row>
+            
+            {filteredMovies.map(m => (
+                <Col 
+                    md={3} 
+                    key={m._id} 
+                    className="mt-5"
+                >
+                    <MovieCard movie={m} />
+                </Col>
+            ))
+            }
+
+        </Row>
+    );
+    
 }
+
+// const mapStateToProps = ({visibilityFilter, movies}, ownProps) =>({
+//     visibilityFilter,
+//     movies,
+//     user: ownProps.user
+// });
 
 export default connect(mapStateToProps)(MoviesList);
