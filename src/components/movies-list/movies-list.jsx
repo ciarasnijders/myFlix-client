@@ -45,10 +45,4 @@ function MoviesList(props) {
     
 }
 
-// const mapStateToProps = ({visibilityFilter, movies}, ownProps) =>({
-//     visibilityFilter,
-//     movies,
-//     user: ownProps.user
-// });
-
 export default connect(mapStateToProps)(MoviesList);

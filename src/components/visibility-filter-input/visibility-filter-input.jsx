@@ -13,12 +13,6 @@ function VisibilityFilterInput(props) {
     />;
 }
 
-// const mapStateToProps = ({visibilityFilter}) => ({
-//     visibilityFilter
-// });
-
-// export default connect(mapStateToProps)(VisibilityFilterInput);
-
 export default connect(
     null,
     { setFilter }
