@@ -8,24 +8,38 @@ import { Link } from "react-router-dom";
 
 export class MovieCard extends React.Component {
   
-  render() {
-    console.log('this.props: ', this.props);
+    render() {
+        console.log('this.props: ', this.props);
         
-    const { movie } = this.props;
+        const { movie } = this.props;
         
         return (
-            <Card className="movie-card" bg="black" text="white">
-              <Card.Img variant="top" src={movie.imageURL} className="card-img img-fluid"/>
-              <Card.Body>
-                <Card.Title as="h4">{movie.title}</Card.Title>
-                <Card.Text className="card-text">{movie.description.slice(0, 200)}...</Card.Text>
-                <Link to={`/movies/${movie._id}`}>
-                  <Button className="mc-gotomovie-button" variant="link">Go to movie</Button>
-                </Link>
-              </Card.Body>
+            <Card 
+                className="movie-card" 
+                bg="black" 
+                text="white"
+            >
+                <Card.Img
+                    className="card-img img-fluid" 
+                    variant="top" 
+                    src={movie.imageURL} 
+                />
+              
+                <Card.Body>
+                    <Card.Title as="h4">{movie.title}</Card.Title>
+                    <Card.Text className="card-text">{movie.description.slice(0, 200)}...</Card.Text>
+                    <Link to={`/movies/${movie._id}`}>
+                        <Button 
+                            className="mc-gotomovie-button" 
+                            variant="link">
+                                Go to movie
+                        </Button>
+                    </Link>
+                </Card.Body>
+
             </Card>
-          );
-        }
+        );
+    }
 }
 
 MovieCard.propTypes = {

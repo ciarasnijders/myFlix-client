@@ -5,9 +5,15 @@ import AppName from './assets/AppName.png';
 import './navbar.scss';
 
 class NavBar extends React.Component {
+    
     render() {
         return (
-            <Navbar className="navbar" collapseOnSelect expand="lg" style={{backgroundColor: 'white'}} fixed="top">
+            <Navbar className="navbar" 
+                collapseOnSelect 
+                expand="lg" 
+                style={{backgroundColor: 'white'}} 
+                fixed="top"
+            >
                 <Container>
                     <Navbar.Brand className="name">
                         <img

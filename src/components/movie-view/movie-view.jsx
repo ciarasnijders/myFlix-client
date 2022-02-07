@@ -36,7 +36,7 @@ export class MovieView extends React.Component {
         return (      
             <div className="movie-view">
                 <div className="movie-poster">
-                    <img src={movie.imageURL} className="movie-poster-image" />
+                    <img src={movie.imageURL} className="movie-poster-image"/>
                 </div>
                 <br></br>
                 <div className="movie-title">
@@ -67,17 +67,36 @@ export class MovieView extends React.Component {
                 <br></br>
 
                 <Link to={`/directors/${movie.director.name}`}>
-                    <Button variant="link" className="movie-view-link">Director</Button>
+                    <Button 
+                        className="movie-view-link"
+                        variant="link">
+                            Director
+                    </Button>
                 </Link>
                 <Link to={`/genres/${movie.genre}`}>
-                    <Button variant="link" className="movie-view-link">Genre</Button>
+                    <Button 
+                        className="movie-view-link"
+                        variant="link">
+                            Genre
+                    </Button>
                 </Link>
 
                 <br></br>
                 <br></br>
 
-                <Button onClick={() => { this.addToFavorites(movie) }} variant="outline-secondary">Add to Favorites</Button>
-                <Button onClick={() => { onBackClick(); }} variant="outline-secondary" size="md" style={{float:'right'}} className="button-back">Back</Button>
+                <Button 
+                    onClick={() => { this.addToFavorites(movie) }} 
+                    variant="outline-secondary">
+                        Add to Favorites
+                </Button>
+                <Button 
+                    onClick={() => { onBackClick(); }} 
+                    className="button-back"
+                    variant="outline-secondary" 
+                    size="md" 
+                    style={{float:'right'}}>
+                        Back
+                </Button>
 
             </div>
         );

@@ -2,10 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import './director-view.scss'
 
-import { Link } from "react-router-dom";
-
-import {Container, Row, Col, Button, Card, CardGroup} from 'react-bootstrap'
-
+import {Button} from 'react-bootstrap'
 
 export class DirectorView extends React.Component {
     
@@ -34,7 +31,12 @@ export class DirectorView extends React.Component {
 
                 <br></br>                
 
-                <Button variant="outline-secondary" onClick={() => onBackClick(null)}>Back</Button>
+                <Button 
+                    variant="outline-secondary" 
+                    onClick={() => onBackClick(null)}
+                >
+                    Back
+                </Button>
 
             </div>
         );

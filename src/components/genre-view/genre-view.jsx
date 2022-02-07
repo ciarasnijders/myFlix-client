@@ -2,9 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import './genre-view.scss'
 
-import { Link } from "react-router-dom";
-
-import {Container, Row, Col, Button, Card, CardGroup} from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 
 
 export class GenreView extends React.Component {
@@ -46,7 +44,12 @@ export class GenreView extends React.Component {
                     <span className="value">{genres.Description}</span>
                 </div>
                 <br></br>
-                <Button variant="outline-secondary" onClick={() => onBackClick(null)}>Back</Button>
+                <Button 
+                    variant="outline-secondary"
+                    onClick={() => onBackClick(null)}
+                >
+                    Back
+                </Button>
 
             </div>
         );
