@@ -1,0 +1,32 @@
+h1 {
+    color: #F8F9FA;
+    text-align: center;
+}
+
+.favorites-movies{
+    margin-left: 5%;
+    width: 100%;
+}
+
+.fv-moviecards{
+    padding-right: 0px;
+}
+
+.moviecard-image{
+    height: 368px !important; 
+    width: 249px !important;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: block;
+}
+
+.fv-gotomovie-button{
+    color: #F8F9FA !important;
+    font-size: 24px !important;
+    margin-bottom: -12px;
+    margin-left: -10px;
+}
+
+.card-body-favourite{
+    padding-left: 0 !important;
+}

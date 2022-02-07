@@ -1,0 +1,31 @@
+.movie-view{
+    justify-content: center;
+}
+
+.movie-poster{
+    height: 368px;
+    width: 249px;
+    margin: auto;
+    display: block;
+}
+
+.movie-poster-image{
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.label {
+    color: white;
+}
+.value{
+    color: #CFCFCF !important;
+    font-size: 22px !important;
+    padding-top: 0px !important;
+;
+}
+
+.movie-view-link{
+    color: #6c757d !important;
+    font-size: 22px !important;
+    padding-left: 0px !important;
+}

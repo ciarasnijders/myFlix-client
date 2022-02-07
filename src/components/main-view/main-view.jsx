@@ -1,42 +1,242 @@
 import React from 'react';
-import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
+import axios from 'axios';
 
-export default class MainView extends React.Component {
+import { LoginView } from '../login-view/login-view';
+import { RegistrationView } from '../registration-view/registration-view';
+// import { MovieCard } from '../movie-card/movie-card';
+import { MovieView } from '../movie-view/movie-view';
+import { DirectorView } from '../director-view/director-view';
+import { GenreView } from '../genre-view/genre-view';
+import { ProfileView } from '../profile-view/profile-view';
+import { setMovies } from '../../actions/actions';
+import MoviesList from '../movies-list/movies-list';
+import NavBar from '../navbar/navbar';
+import FavoritesView from '../favorites-view/favorites-view';
+
+import { connect } from 'react-redux';
+
+import { BrowserRouter as Router, Route, Redirect, Link } from "react-router-dom";
+import { Row, Col } from 'react-bootstrap';
+
+
+class MainView extends React.Component {
 
     constructor(){
         super();
         this.state = {
-            movies: [
-                { id: 1, title: 'Harry Potter and the Philosopher\'s Stone', description:'The film stars Daniel Radcliffe as Harry Potter, with Rupert Grint as Ron Weasley, and Emma Watson as Hermione Granger. Its story follows Harry\'s first year at Hogwarts School of Witchcraft and Wizardry as he discovers that he is a famous wizard and begins his formal wizarding education.', director: {name:'Chris Columbus', bio:'Chris Joseph Columbus is an American film director, producer, and screenwriter. Born in Spangler, Pennsylvania, Columbus studied film at Tisch School of the Arts where he developed an interest in filmmaking.', birthYear: '1958', deathYear:''}, year: '2001', genre:'fantasy', imageURL: 'images/PS_poster.jpeg', featured: true},
-                { id: 2, title: 'Titanic', description:'Titanic is a 1997 American epic romantic disaster movie. It was directed, written, and co-produced by James Cameron. The movie is about the 1912 sinking of the RMS Titanic. ... They fall in love after meeting aboard the ship, but it was not good for a rich girl to fall in love with a poor boy in 1912.', director: { name:'James Cameron', bio:'James Francis Cameron CC is a Canadian film director, producer, screenwriter, editor, artist, and environmentalist who currently lives in New Zealand. He is best known for making science fiction and epic films. Cameron first gained recognition for directing The Terminator', birthYear: '1954', deathYear:''}, year: '1997',  genre:'romance', imageURL: 'images/Titanic_(Official_Film_Poster).png', featured: true},
-                { id: 3, title: 'La La Land', description:'La La Land is a 2016 American musical romantic comedy-drama film written and directed by Damien Chazelle. It stars Ryan Gosling as a jazz pianist and Emma Stone as an aspiring actress, who meet and fall in love while pursuing their dreams in Los Angeles.', director: {name:'Damien Chazelle', bio:'Damien Sayre Chazelle is an American film director, producer, and screenwriter. He is best known for his films Whiplash, La La Land, and First Man', birthYear: '1985', deathYear:'',}, year: '2016', genre:'musical', imageURL: 'images/lalalandposter2.jpeg', featured: true}
-            ],
-            selectedMovie: null
-        };
+            user: null,
+            newUser: false
+        }
+        this.handleRegistration=this.handleRegistration.bind(this);
+        this.redirectToLogin=this.redirectToLogin.bind(this);
+        this.redirectToRegister=this.redirectToRegister.bind(this);
+
+    }
+    
+    componentDidMount() {
+        let accessToken = localStorage.getItem('token');
+        if (accessToken !== null) {
+            this.setState({
+            user: localStorage.getItem('user')
+            });
+            this.getMovies(accessToken);
+        }
     }
 
+    getMovies(token) {
+        axios.get('https://whatflixapp.herokuapp.com/movies', {
+            headers: { Authorization: `Bearer ${token}`}
+        })
+        .then(response => {
+            this.props.setMovies(response.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+    }
+
+    /*When a movie is clicked, this function is invoked and updates the state of the `selectedMovie` *property to that movie*/
     setSelectedMovie(newSelectedMovie) {
         this.setState({
             selectedMovie: newSelectedMovie
         });
-      }
+    }
+    
+    onLoggedIn(authData) {
+        console.log('auth data ---->', authData);
+        this.setState({
+            user: authData.user.Username
+        });
+      
+        localStorage.setItem('token', authData.token);
+        localStorage.setItem('user', authData.user.Username);
+        this.getMovies(authData.token);
+    }
+
+    redirectToLogin() {
+        window.location.href= '/'
+    }
+
+    redirectToRegister() {
+        window.location.href= '/register'
+    }
+
+    handleRegistration() {
+        this.setState({
+            newUser: true
+        });
+    }
+
+    onLoggedOut() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        console.log('logging out');
+        this.setState({
+            user: null
+        });
+    }
+
 
     render() {
-        const { movies, selectedMovie } = this.state;
+        let { movies } = this.props;
+        let { user } = this.state;
 
-        if (movies.length === 0) return <div className="main-view">The list is empty!</div>;
         return (
-            <div className="main-view">
-                {selectedMovie
-                    ? <MovieView movie={selectedMovie} onBackClick={(newSelectedMovie) => { this.setSelectedMovie(newSelectedMovie) }}/>
-                    : movies.map(movie => (
-                        <MovieCard key={movie.id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }}/>
-                    ))
-                }
-            </div>
+
+            <Router>
+                <NavBar />
+                <Row 
+                    className="main-view justify-content-md-center" 
+                    style={{paddingTop: "100px"}}
+                >
+
+                    <Route exact path="/" render={() => {
+                        if (!user) { 
+                            return (
+                                <Col>
+                                    <LoginView 
+                                        onLoggedIn={user => this.onLoggedIn(user)} 
+                                        redirectToRegister={() => this.redirectToRegister()}
+                                    />
+                                </Col>
+                            )
+                        }
+                        if (movies.length === 0) 
+                            return <div className="main-view" />;
+                        return <MoviesList movies={movies}/>
+                    }} />
+
+                    <Route path="/register" render={() => {
+                        if (user) 
+                            return <Redirect to="/" />
+                        return (
+                            <Col> 
+                                <RegistrationView redirectToLogin={() => this.redirectToLogin()}/>
+                            </Col>
+                        )
+                    }} />
+
+                    <Route exact path="/movies/:movieId" render={({ match, history }) => {
+                        if (!user) 
+                            return <Col>
+                                <LoginView 
+                                    onLoggedIn={user => this.onLoggedIn(user)} 
+                                    redirectToRegister={() => this.redirectToRegister()} 
+                                />
+                            </Col>
+                        if (movies.length === 0) 
+                            return <div className="main-view" />;
+                        return <Col md={8}>
+                            <MovieView 
+                                movie={movies.find(movie => movie._id === match.params.movieId)} 
+                                onBackClick={() => history.goBack()} 
+                            />
+                        </Col>
+                    }} />
+
+                    <Route exact path="/genres/:name" render={({ match, history }) => {
+                        if (!user) 
+                        return <Col>
+                            <LoginView 
+                                onLoggedIn={user => this.onLoggedIn(user)} 
+                                redirectToRegister={() => this.redirectToRegister()} 
+                            />
+                        </Col>
+                        if (movies.length === 0) 
+                            return <div className="main-view" />;
+                        return <Col md={8}>
+                            <GenreView 
+                                genres={ match.params.name } 
+                                onBackClick={() => history.goBack()}
+                            />
+                        </Col>
+                    }} />
+
+                    <Route path="/directors/:name" render={({ match, history }) => {
+                        if (!user) 
+                            return <Col>
+                                <LoginView 
+                                    onLoggedIn={user => this.onLoggedIn(user)} 
+                                    redirectToRegister={() => this.redirectToRegister()} 
+                                />
+                            </Col>
+                        if (movies.length === 0) 
+                            return <div className="main-view" />;
+                        return <Col md={8}>
+                            <DirectorView 
+                                director={movies.find(movie => movie.director.name === match.params.name).director} 
+                                onBackClick={() => history.goBack()} 
+                            />
+                        </Col>
+                    }} />
+
+
+                    {/* <Link to={`/users/${user}`} >{user}</Link> */}
+                    <Route path='/users/:username' render={({history, match}) => {
+                        if (!user) 
+                            return <LoginView 
+                                onLoggedIn={user => this.onLoggedIn(user)} 
+                                redirectToRegister={() => this.redirectToRegister()} 
+                            />
+                        if (movies.length === 0) 
+                            return <div className="main-view" />;
+                        return <ProfileView 
+                            history={history} 
+                            movies={movies} 
+                            user={user === match.params.username} 
+                            onBackClick={() => window.location.href= '/'}
+                        />
+                    }} 
+                    />
+
+                    {/* <Link to={`/favorites`}>{user}</Link> */}
+                    <Route path="/favorites" render={({ match, history }) => {
+                        if (!user) 
+                            return <Col>
+                                <LoginView 
+                                    onLoggedIn={user => this.onLoggedIn(user)} 
+                                    redirectToRegister={() => this.redirectToRegister()} 
+                                />
+                            </Col>
+                        if (movies.length === 0) 
+                            return <div className="main-view" />;
+                        return <div className="main-view">
+                            <FavoritesView 
+                                movies={movies} 
+                                onBackClick={() => history.goBack()} 
+                            />
+                        </div>
+                    }} />
+                </Row>
+            </Router>
+
         );
-      }
+    }
+};
 
-
+let mapStateToProps = state => {
+    return { movies: state.movies }
 }
+  
+
+export default connect(mapStateToProps, { setMovies } )(MainView);

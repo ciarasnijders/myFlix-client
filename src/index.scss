@@ -1,5 +1,19 @@
-$color: steelblue;
+.app-container{
+  background-color: black;
+  padding-bottom: 70px;
+}
 
-.my-flix {
-  color: $color;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  // background-color: black;
+  
+  font-family: 'Alice', serif;
+
+  /* Sets the font size to 16px */
+  line-height: 1.6;
 }
