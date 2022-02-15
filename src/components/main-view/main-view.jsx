@@ -8,7 +8,7 @@ import { MovieView } from '../movie-view/movie-view';
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
 import { ProfileView } from '../profile-view/profile-view';
-import { setMovies } from '../../actions/actions';
+import { setMovies, setUser } from '../../actions/actions';
 import MoviesList from '../movies-list/movies-list';
 import NavBar from '../navbar/navbar';
 import FavoritesView from '../favorites-view/favorites-view';
@@ -36,10 +36,9 @@ class MainView extends React.Component {
     componentDidMount() {
         let accessToken = localStorage.getItem('token');
         if (accessToken !== null) {
-            this.setState({
-            user: localStorage.getItem('user')
-            });
+            this.props.setUser(localStorage.getItem('user'));
             this.getMovies(accessToken);
+            this.getUser(localStorage.getItem("user"), accessToken);
         }
     }
 
@@ -63,11 +62,7 @@ class MainView extends React.Component {
     }
     
     onLoggedIn(authData) {
-        console.log('auth data ---->', authData);
-        this.setState({
-            user: authData.user.Username
-        });
-      
+        this.props.setUser(authData.user.Username);
         localStorage.setItem('token', authData.token);
         localStorage.setItem('user', authData.user.Username);
         this.getMovies(authData.token);
@@ -98,8 +93,8 @@ class MainView extends React.Component {
 
 
     render() {
-        let { movies } = this.props;
-        let { user } = this.state;
+        const { token, userInfo } = this.state;
+        const { user, movies } = this.props;
 
         return (
 
@@ -235,8 +230,8 @@ class MainView extends React.Component {
 };
 
 let mapStateToProps = state => {
-    return { movies: state.movies }
+    return { movies: state.movies, user: state.user  }
 }
   
 
-export default connect(mapStateToProps, { setMovies } )(MainView);
+export default connect(mapStateToProps, { setMovies, setUser } )(MainView);
