@@ -8,10 +8,11 @@ export function RegistrationView(props) {
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ email, setEmail ] = useState('');
+    const [ birthday, setBirthday] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(username, password, email);
+        console.log(username, password, email, birthday);
         /* Send a request to the server for authentication */
 
         axios.post('http://whatflixapp.herokuapp.com/users', {
@@ -76,6 +77,17 @@ export function RegistrationView(props) {
                                             placeholder="Enter your email address"
                                             value={email} 
                                             onChange={e => setEmail(e.target.value)}
+                                            required 
+                                        />
+                                    </Form.Group>
+
+                                    <Form.Group className="mb-3">
+                                        <Form.Label> Date of Birth: </Form.Label>
+                                        <Form.Control 
+                                            type="text" 
+                                            placeholder="Enter your date of birth"
+                                            value={birthday} 
+                                            onChange={e => setBirthday(e.target.value)} 
                                             required 
                                         />
                                     </Form.Group>
